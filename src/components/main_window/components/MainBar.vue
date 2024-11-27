@@ -1,12 +1,13 @@
 <template>
   <div class="mainBar">
-    <button></button>
+    <button @click="handleAddTargetClick"></button>
     <div class="display_text">
-      <Text class="text" style="color: #0fbf6a">任务已完成：10</Text>
-      <Text class="text" style="color: #ed5752">任务未完成：11</Text>
+      <span class="text" style="color: #0fbf6a">任务已完成：10</span>
+      <span class="text" style="color: #ed5752">任务未完成：11</span>
     </div>
     <button @click="handleCloseClick"></button>
   </div>
+  
 </template>
 <script scoped>
 import { inject } from "vue";
@@ -18,6 +19,9 @@ export default {
   methods: {
     handleCloseClick() {
       close();
+    },
+    handleAddTargetClick() {
+      this.$emit("handleAddTargetClick");
     },
   },
 };

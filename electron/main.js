@@ -19,7 +19,9 @@ const createWindow = () => {
   ipcMain.on('close', () => {
     mainWindow.close()
   })
-
+  ipcMain.on('move-window', (event, position) => {
+    mainWindow.setPosition(position);
+  });
 
 
   // and load the index.html of the app.

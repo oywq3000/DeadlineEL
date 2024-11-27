@@ -4,7 +4,7 @@
 
 
 <script setup>
-import MainPage from "./components/MainPage/MainPage.vue";
+import MainPage from "./components/main_window/MainPage.vue";
 import {provide} from "vue";
 function close() {
   window.electronAPI.close();
