@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
 const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld('electronAPI', {
   close: () => ipcRenderer.send('close'),
-  MoveWindow: (X,Y) => ipcRenderer.send('move-window', {
+  setWinPosition: (X,Y) => ipcRenderer.send('move-window', {
     x:X,
     y:Y,
   })

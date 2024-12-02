@@ -14,14 +14,22 @@ const createWindow = () => {
     resizable: false,
     frame: false,
   })
+  //init main window
+  mainWindow.setMaximumSize(640, 360);
+  mainWindow.setMinimumSize(640, 360);
+  
+  mainWindow.on("resize", () => {
+   
+  })
 
   //ipc receive event
   ipcMain.on('close', () => {
     mainWindow.close()
   })
-  ipcMain.on('move-window',  (event,{x,y}) => {
-    mainWindow.setPosition(x,y,false);
+  ipcMain.on('move-window', (event, { x, y }) => {
+   mainWindow.setBounds({x:x, y:y, width:640, height:360});
   });
+  
 
 
   // and load the index.html of the app.

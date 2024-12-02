@@ -1,12 +1,6 @@
 <template>
   <div class="container">
-    <div
-      class="bar"
-      @mousedown="startDrag"
-      @mousemove="onDrag"
-      @mouseup="stopDrag"
-      @mouseleave="stopDrag"
-    >
+    <div class="bar" @mousedown="startDrag">
       <Bar @handleAddTargetClick="handleAddTargetClick" />
     </div>
     <div class="display"></div>
@@ -17,15 +11,10 @@
 <script scoped>
 import AddTarget from "@/components/add_target_window/AddTarget.vue";
 import Bar from "./components/MainBar.vue";
+import { DragWindowMixins } from "@/components/mixins/DragWindowMixins";
 //@assets/components/add_target_window/AddTarget.vue
 export default {
-  data() {
-    return {
-      dragging: false,
-      initialMousePos: { x: 0, y: 0 },
-      initialWindowPos: { x: 0, y: 0 },
-    };
-  },
+  mixins:[DragWindowMixins],//expose method startDrag for window drag
   components: {
     Bar,
     AddTarget,
@@ -34,26 +23,6 @@ export default {
     handleAddTargetClick() {
       console.log("handleAddTargetClick");
       this.$refs.addTargetWin.openAddTargetWin();
-    },
-    startDrag(event) {
-      console.log("startDrag");
-      this.dragging = true;
-      this.initialMousePos = { x: event.clientX, y: event.clientY };
-      this.initialWindowPos = { x: window.screenX, y: window.screenY }; // 需要替换为实际窗口位置
-    },
-    onDrag(event) {
-      console.log("deltaX");
-      if (!this.dragging) return;
-      const deltaX = event.clientX - this.initialMousePos.x;
-      const deltaY = event.clientY - this.initialMousePos.y;
-      this.initialWindowPos.x += deltaX
-      this.initialWindowPos.y += deltaY
-      // 通过 IPC 发送新的窗口位置到主进程
-      window.electronAPI.MoveWindow(this.initialWindowPos.x, this.initialWindowPos.y)
-    },
-    stopDrag() {
-      console.log("stopDrag");
-      this.dragging = false;
     },
   },
 };
