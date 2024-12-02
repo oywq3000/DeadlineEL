@@ -33,7 +33,7 @@ export default {
   width: 640px;
   height: 360px;
   background-color: #e2d1a0;
-  margin: 0;
+  margin: 0,0,0,0;
 }
 .bar {
   width: 100%;
