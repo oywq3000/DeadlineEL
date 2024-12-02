@@ -19,8 +19,8 @@ const createWindow = () => {
   ipcMain.on('close', () => {
     mainWindow.close()
   })
-  ipcMain.on('move-window', (event, position) => {
-    mainWindow.setPosition(position);
+  ipcMain.on('move-window',  (event,{x,y}) => {
+    mainWindow.setPosition(x,y,false);
   });
 
 

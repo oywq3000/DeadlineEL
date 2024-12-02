@@ -55,6 +55,7 @@ button.clicked {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  user-select: none;
 }
 
 .text {

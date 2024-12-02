@@ -3,8 +3,9 @@
     <div
       class="bar"
       @mousedown="startDrag"
-      @mousemove.prevent="onDrag"
+      @mousemove="onDrag"
       @mouseup="stopDrag"
+      @mouseleave="stopDrag"
     >
       <Bar @handleAddTargetClick="handleAddTargetClick" />
     </div>
@@ -38,19 +39,17 @@ export default {
       console.log("startDrag");
       this.dragging = true;
       this.initialMousePos = { x: event.clientX, y: event.clientY };
-      this.initialWindowPos = { x: 0, y: 0 }; // 需要替换为实际窗口位置
+      this.initialWindowPos = { x: window.screenX, y: window.screenY }; // 需要替换为实际窗口位置
     },
     onDrag(event) {
       console.log("deltaX");
       if (!this.dragging) return;
       const deltaX = event.clientX - this.initialMousePos.x;
       const deltaY = event.clientY - this.initialMousePos.y;
-    
+      this.initialWindowPos.x += deltaX
+      this.initialWindowPos.y += deltaY
       // 通过 IPC 发送新的窗口位置到主进程
-      ipcRenderer.send('move-window', {
-        x: this.initialWindowPos.x + deltaX,
-        y: this.initialWindowPos.y + deltaY,
-      });
+      window.electronAPI.MoveWindow(this.initialWindowPos.x, this.initialWindowPos.y)
     },
     stopDrag() {
       console.log("stopDrag");
