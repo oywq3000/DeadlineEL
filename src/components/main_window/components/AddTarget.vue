@@ -1,19 +1,18 @@
 <template>
-  <div v-show="visible" class="modal-overlay">
+  <div v-if="visible" class="modal-overlay">
     <div class="modal-content">
       <div class="header">
         <span>添加任务</span>
         <button @click="closeAddTargetWin">关闭</button>
       </div>
-
       <div class="input-content">
-        <textarea></textarea>
+        <textarea v-model="text"></textarea>
         <div>
-          <input id="date_input" ref="datePick" type="date"/>
-          <input id="hours_input" type="number" />
-          <input id="minutes_input" type="number" />
+          <input id="date_input" ref="datePick" type="date" v-model="date"/>
+          <input id="hours_input" type="number" v-model="hours" />
+          <input id="minutes_input" type="number" v-model="minutes" />
         </div>
-        <button class="certify_button">确定</button>
+        <button class="certify_button" @click="handleTargetCreate">确定</button>
       </div>
     </div>
   </div>
@@ -26,19 +25,17 @@ export default {
   setup() {},
   data() {
     return {
-      isDrag: false,
       visible: false,
-      username: "",
-      password: "",
+      hours: 0,
+      minutes: 0,
+      date:  new Date().toISOString().split("T")[0],
+      text: "任务1",
     };
   },
   methods: {
     openAddTargetWin() {
       console.log("openAddTargetWin");
       this.visible = true;
-
-      //init controls 
-      this.$refs.datePick.value = new Date().toISOString().split("T")[0]; 
     },
     closeAddTargetWin() {
       this.visible = false;
@@ -48,6 +45,10 @@ export default {
       console.log("Username:", this.username, "Password:", this.password);
       this.closeModal();
     },
+    handleTargetCreate(){
+      this.$emit("handleTargetCreate", this.text, this.date, this.hours, this.minutes);
+      this.visible = false;
+    }
   },
 
   //lifetime function

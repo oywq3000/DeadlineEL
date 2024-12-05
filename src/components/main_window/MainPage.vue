@@ -9,7 +9,7 @@
 </template>
 
 <script scoped>
-import AddTarget from "@/components/add_target_window/AddTarget.vue";
+import AddTarget from "@/components/main_window/components/AddTarget.vue";
 import Bar from "./components/MainBar.vue";
 import { DragWindowMixins } from "@/components/mixins/DragWindowMixins";
 //@assets/components/add_target_window/AddTarget.vue
