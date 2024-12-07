@@ -12,6 +12,7 @@
 import AddTarget from "@/components/main_window/components/AddTarget.vue";
 import Bar from "./components/MainBar.vue";
 import { DragWindowMixins } from "@/components/mixins/DragWindowMixins";
+import axios from "axios";
 //@assets/components/add_target_window/AddTarget.vue
 export default {
   mixins:[DragWindowMixins],//expose method startDrag for window drag
@@ -24,6 +25,9 @@ export default {
       console.log("handleAddTargetClick");
       this.$refs.addTargetWin.openAddTargetWin();
     },
+  },
+  mounted() {
+    console.log(axios.name);
   },
 };
 </script>
